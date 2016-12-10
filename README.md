@@ -45,24 +45,24 @@ ter dependências de outras álgebras que devem ser implementadas.
 2. "equivalent" é uma definição apropriada de equivalência para o valor dado.
       A definição deve assegurar que os dois valores podem ser trocados de forma segura em um programa que respeita as abstrações. Por exemplo:
     - Duas listas são equivalentes se forem equivalentes em todos os índices.
-    - Two plain old JavaScript objects, interpreted as dictionaries, are equivalent when they are equivalent for all keys.
-    - Two promises are equivalent when they yield equivalent values.
-    - Two functions are equivalent if they yield equivalent outputs for equivalent inputs.
+    - Dois objetos JavaScript simples e antigos, interpretados como dicionários, são equivalentes quando são equivalentes para todas as chaves.
+    - Duas promessas são equivalentes quando produzem valores equivalentes.
+    - Duas funções são equivalentes se produzem saídas equivalentes para entradas equivalentes.
 
-## Prefixed method names
+## Nomes de métodos prefixados
 
-In order for a data type to be compatible with Fantasy Land, its values must
-have certain properties. These properties are all prefixed by `fantasy-land/`.
-For example:
+Para que um tipo de dado seja compatível com o Fantasy Land, seus valores
+devem ter certas propriedades. Estas propriedades são todas prefixadas por `fantasy-land /`.
+Por exemplo:
 
 ```js
 //  MyType#fantasy-land/map :: MyType a ~> (a -> b) -> MyType b
 MyType.prototype['fantasy-land/map'] = ...
 ```
 
-Further in this document unprefixed names are used just to reduce noise.
+Mais adiante, neste documento, os nomes sem prefixação são usados apenas para reduzir o ruído.
 
-For convenience you can use `fantasy-land` package:
+Para conveniência, você pode usar o pacote `fantasy-land`:
 
 ```js
 var fl = require('fantasy-land')
@@ -95,7 +95,7 @@ uma propriedade `constructor` que é uma referência ao tipo representativo.
 2. `a.equals(b) === b.equals(a)` (symmetry)
 3. If `a.equals(b)` and `b.equals(c)`, then `a.equals(c)` (transitivity)
 
-#### `equals` method
+#### Método `equals` 
 
 ```hs
 equals :: Setoid a => a ~> a -> Boolean
@@ -143,7 +143,7 @@ the [Semigroup](#semigroup) specification.
 1. `m.concat(M.empty())` is equivalent to `m` (right identity)
 2. `M.empty().concat(m)` is equivalent to `m` (left identity)
 
-#### `empty` method
+#### Método `empty`
 
 ```hs
 empty :: Monoid m => () -> m
@@ -166,7 +166,7 @@ Given a value `m`, one can access its type representative via the
 1. `u.map(a => a)` is equivalent to `u` (identity)
 2. `u.map(x => f(g(x)))` is equivalent to `u.map(g).map(f)` (composition)
 
-#### `map` method
+#### Método `map`
 
 ```hs
 map :: Functor f => f a ~> (a -> b) -> f b
@@ -193,7 +193,7 @@ implement the [Functor](#functor) specification.
 
 1. `v.ap(u.ap(a.map(f => g => x => f(g(x)))))` is equivalent to `v.ap(u).ap(a)` (composition)
 
-#### `ap` method
+#### Método `ap`
 
 ```hs
 ap :: Apply f => f a ~> f (a -> b) -> f b
@@ -225,7 +225,7 @@ implement the [Apply](#apply) specification.
 2. `A.of(x).ap(A.of(f))` is equivalent to `A.of(f(x))` (homomorphism)
 3. `A.of(y).ap(u)` is equivalent to `u.ap(A.of(f => f(y)))` (interchange)
 
-#### `of` method
+#### Método `of`
 
 ```hs
 of :: Applicative f => a -> f a
@@ -254,7 +254,7 @@ the [Functor](#functor) specification.
 1. `a.alt(b).alt(c)` is equivalent to `a.alt(b.alt(c))` (associativity)
 2. `a.alt(b).map(f)` is equivalent to `a.map(f).alt(b.map(f))` (distributivity)
 
-#### `alt` method
+#### Método `alt` 
 
 ```hs
 alt :: Alt f => f a ~> f a -> f a
@@ -283,7 +283,7 @@ the [Alt](#alt) specification.
 2. `A.zero().alt(x)` is equivalent to `x` (left identity)
 2. `A.zero().map(f)` is equivalent to `A.zero()` (annihilation)
 
-#### `zero` method
+#### Método `zero`
 
 ```hs
 zero :: Plus f => () -> f a
@@ -313,7 +313,7 @@ the [Applicative](#applicative) and [Plus](#plus) specifications.
 
 1. `u.reduce` is equivalent to `u.reduce((acc, x) => acc.concat([x]), []).reduce`
 
-#### `reduce` method
+#### Método `reduce`
 
 ```hs
 reduce :: Foldable f => f a ~> ((b, a) -> b, b) -> b
@@ -366,7 +366,7 @@ Compose.prototype.map = function(f) {
 };
 ```
 
-#### `traverse` method
+#### Método `traverse`
 
 ```hs
 traverse :: Applicative f, Traversable t => t a ~> (a -> f b, c -> f c) -> f (t b)
@@ -393,7 +393,7 @@ implement the [Apply](#apply) specification.
 
 1. `m.chain(f).chain(g)` is equivalent to `m.chain(x => f(x).chain(g))` (associativity)
 
-#### `chain` method
+#### Método `chain`
 
 ```hs
 chain :: Chain m => m a ~> (a -> m b) -> m b
@@ -421,7 +421,7 @@ A value that implements the ChainRec specification must also implement the [Chai
    `(function step(v) { return p(v) ? d(v) : n(v).chain(step); }(i))` (equivalence)
 2. Stack usage of `M.chainRec(f, i)` must be at most a constant multiple of the stack usage of `f` itself.
 
-#### `chainRec` method
+#### Método `chainRec`
 
 ```hs
 chainRec :: ChainRec m => ((a -> c, b -> c, a) -> m c, a) -> m b
@@ -459,7 +459,7 @@ the [Applicative](#applicative) and [Chain](#chain) specifications.
 
 1. `w.extend(g).extend(f)` is equivalent to `w.extend(_w => f(_w.extend(g)))`
 
-#### `extend` method
+#### Método `extend`
 
 ```hs
 extend :: Extend w => w a ~> (w a -> b) -> w b
@@ -487,7 +487,7 @@ A value that implements the Comonad specification must also implement the [Funct
 2. `w.extend(f).extract()` is equivalent to `f(w)`
 3. `w.extend(f)` is equivalent to `w.extend(x => x).map(f)`
 
-#### `extract` method
+#### Método `extract`
 
 ```hs
 extract :: Comonad w => w a ~> () -> a
@@ -509,7 +509,7 @@ the [Functor](#functor) specification.
 1. `p.bimap(a => a, b => b)` is equivalent to `p` (identity)
 2. `p.bimap(a => f(g(a)), b => h(i(b))` is equivalent to `p.bimap(g, i).bimap(f, h)` (composition)
 
-#### `bimap` method
+#### Método`bimap`
 
 ```hs
 bimap :: Bifunctor f => f a c ~> (a -> b, c -> d) -> f b d
@@ -542,7 +542,7 @@ the [Functor](#functor) specification.
 1. `p.promap(a => a, b => b)` is equivalent to `p` (identity)
 2. `p.promap(a => f(g(a)), b => h(i(b)))` is equivalent to `p.promap(f, i).promap(g, h)` (composition)
 
-#### `promap` method
+#### Método `promap`
 
 ```hs
 promap :: Profunctor p => p b c ~> (a -> b, c -> d) -> p a d
