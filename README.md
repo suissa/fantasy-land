@@ -6,8 +6,7 @@
 
 <img src="logo.png" width="200" height="200" />
 
-This project specifies interoperability of common algebraic
-structures:
+Este projeto especifica interoperabilidade de estruturas algébricas comuns::
 
 * [Setoid](#setoid)
 * [Semigroup](#semigroup)
@@ -30,15 +29,16 @@ structures:
 
 <img src="figures/dependencies.png" width="888" height="340" />
 
-## General
+## Geral
 
-An algebra is a set of values, a set of operators that it is closed
-under and some laws it must obey.
+Uma álgebra é um conjunto de valores, um conjunto de operadores 
+que está fechado sob algumas leis que deve obedecer.
 
-Each Fantasy Land algebra is a separate specification. An algebra may
-have dependencies on other algebras which must be implemented.
+Cada álgebra da Fantasy Land é uma especificação separada. Uma álgebra pode
+ter dependências de outras álgebras que devem ser implementadas.
 
-## Terminology
+
+## Terminologia
 
 1. "value" is any JavaScript value, including any which have the
    structures defined below.
