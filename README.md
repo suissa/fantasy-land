@@ -1,4 +1,4 @@
-# Fantasy Land Specification
+# Fantasy Land Especificação
 
 [![Build Status](https://travis-ci.org/fantasyland/fantasy-land.svg?branch=master)](https://travis-ci.org/fantasyland/fantasy-land) [![Join the chat at https://gitter.im/fantasyland/fantasy-land](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/fantasyland/fantasy-land?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -40,11 +40,11 @@ ter dependências de outras álgebras que devem ser implementadas.
 
 ## Terminologia
 
-1. "value" is any JavaScript value, including any which have the
-   structures defined below.
-2. "equivalent" is an appropriate definition of equivalence for the given value.
-    The definition should ensure that the two values can be safely swapped out in a program that respects abstractions. For example:
-    - Two lists are equivalent if they are equivalent at all indices.
+1. "value" é qualquer valor JavaScript, incluindo qualquer um que tenha as
+    estruturas definidas a seguir.
+2. "equivalent" é uma definição apropriada de equivalência para o valor dado.
+      A definição deve assegurar que os dois valores podem ser trocados de forma segura em um programa que respeita as abstrações. Por exemplo:
+    - Duas listas são equivalentes se forem equivalentes em todos os índices.
     - Two plain old JavaScript objects, interpreted as dictionaries, are equivalent when they are equivalent for all keys.
     - Two promises are equivalent when they yield equivalent values.
     - Two functions are equivalent if they yield equivalent outputs for equivalent inputs.
