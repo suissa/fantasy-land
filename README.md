@@ -76,18 +76,18 @@ MyType.prototype[fl.map] = ...
 var foo = bar[fl.map](x => x + 1)
 ```
 
-## Type representatives
+## Tipos representantes
 
-Certain behaviours are defined from the perspective of a member of a type.
-Other behaviours do not require a member. Thus certain algebras require a
-type to provide a value-level representative (with certain properties). The
-Identity type, for example, could provide `Id` as its type representative:
-`Id :: TypeRep Identity`.
+Determinados comportamentos são definidos a partir da perspectiva de um 
+membro de um tipo. Outros comportamentos não exigem um membro. Assim, 
+certas álgebras requerem um tipo para fornecer um representante de nível 
+de valor (com determinadas propriedades). O tipo de identidade, por exemplo, 
+poderia fornecer `Id` como seu tipo representativo: `Id :: TypeRep Identity`.
 
-If a type provides a type representative, each member of the type must have
-a `constructor` property which is a reference to the type representative.
+Se um tipo fornecer um tipo representativo, cada membro do tipo deve ter
+uma propriedade `constructor` que é uma referência ao tipo representativo.
 
-## Algebras
+## Álgebras
 
 ### Setoid
 
